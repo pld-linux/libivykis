@@ -1,0 +1,76 @@
+--- ivykis-0.23/configure.ac.orig	2011-08-15 18:13:45.000000000 +0200
++++ ivykis-0.23/configure.ac	2011-11-01 09:39:08.072581928 +0100
+@@ -6,7 +6,7 @@
+ 
+ # Checks for programs.
+ AC_PROG_CC
+-AC_PROG_RANLIB
++AC_PROG_LIBTOOL
+ 
+ # Checks for libraries.
+ AC_SEARCH_LIBS([pthread_create], [pthread], [],
+--- ivykis-0.23/lib/Makefile.am.orig	2011-08-15 18:13:45.000000000 +0200
++++ ivykis-0.23/lib/Makefile.am	2011-11-01 09:39:34.389249478 +0100
+@@ -4,7 +4,7 @@
+ 
+ AM_CFLAGS		= -Wall
+ 
+-lib_LIBRARIES		= libivykis.a
++lib_LTLIBRARIES		= libivykis.la
+ 
+ if HAVE_DEV_POLL
+ DEV_POLL_SRC = iv_method_dev_poll.c
+@@ -24,7 +24,7 @@
+ KQUEUE_SRC =
+ endif
+ 
+-libivykis_a_SOURCES	= iv_avl.c			\
++libivykis_la_SOURCES	= iv_avl.c			\
+ 			  iv_main.c			\
+ 			  $(DEV_POLL_SRC)		\
+ 			  $(EPOLL_SRC)			\
+--- ivykis-0.23/modules/Makefile.am.orig	2011-08-15 18:13:45.000000000 +0200
++++ ivykis-0.23/modules/Makefile.am	2011-11-01 09:40:10.399250682 +0100
+@@ -6,7 +6,7 @@
+ 
+ AM_CFLAGS		= -Wall
+ 
+-lib_LIBRARIES		= libivykis-modules.a
++lib_LTLIBRARIES		= libivykis-modules.la
+ 
+ if HAVE_INOTIFY
+ INOTIFY_SRC = iv_inotify.c
+@@ -16,7 +16,8 @@
+ INOTIFY_INCLUDE =
+ endif
+ 
+-libivykis_modules_a_SOURCES	= iv_event.c			\
++libivykis_modules_la_LIBADD = $(top_builddir)/lib/libivykis.la
++libivykis_modules_la_SOURCES	= iv_event.c			\
+ 				  iv_event_raw.c		\
+ 				  $(INOTIFY_SRC)		\
+ 				  iv_popen.c			\
+--- ivykis-0.23/lib/test/Makefile.am.orig	2011-08-15 18:13:45.000000000 +0200
++++ ivykis-0.23/lib/test/Makefile.am	2011-11-01 09:50:52.785938860 +0100
+@@ -2,7 +2,7 @@
+ 
+ AM_CFLAGS		= -Wall
+ 
+-LDADD			= ../libivykis.a
++LDADD			= ../libivykis.la
+ 
+ noinst_PROGRAMS		= avl				\
+ 			  client			\
+--- ivykis-0.23/modules/test/Makefile.am.orig	2011-08-15 18:13:45.000000000 +0200
++++ ivykis-0.23/modules/test/Makefile.am	2011-11-01 10:04:24.195966026 +0100
+@@ -2,8 +2,8 @@
+ 			  -I$(top_srcdir)/modules/include
+ AM_CFLAGS		= -Wall
+ 
+-LDADD			= ../../lib/libivykis.a			\
+-			  ../libivykis-modules.a
++LDADD			= ../../lib/libivykis.la			\
++			  ../libivykis-modules.la
+ 
+ if HAVE_INOTIFY
+ INOTIFY_PROGS = iv_inotify_test
