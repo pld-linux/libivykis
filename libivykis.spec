@@ -1,17 +1,16 @@
 Summary:	Wrapper over various OS'es implementation of I/O readiness notification facilities
 Summary(pl.UTF-8):	Obudowanie implementacji różnych OS-ów powiadamiania o dostępności we/wy
 Name:		libivykis
-Version:	0.23
+Version:	0.38
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libivykis/ivykis-%{version}.tar.gz
-# Source0-md5:	60ae0155ba4cb37751ff0c2ee92f68a1
-Patch0:		%{name}-shared.patch
+# Source0-md5:	dc9d4fd909daae77f681007380e867ad
 URL:		http://libivykis.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -51,7 +50,6 @@ Biblioteki statyczne libivykis.
 
 %prep
 %setup -q -n ivykis-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -80,18 +78,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS DEDICATION
 %attr(755,root,root) %{_libdir}/libivykis.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libivykis.so.0
-%attr(755,root,root) %{_libdir}/libivykis-modules.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libivykis-modules.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libivykis.so
-%attr(755,root,root) %{_libdir}/libivykis-modules.so
 %{_libdir}/libivykis.la
-%{_libdir}/libivykis-modules.la
 %{_includedir}/iv*.h
 %{_pkgconfigdir}/ivykis.pc
-%{_pkgconfigdir}/ivykis-modules.pc
 %{_mandir}/man3/IV_*.3*
 %{_mandir}/man3/iv_*.3*
 %{_mandir}/man3/ivykis.3*
@@ -99,4 +92,3 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libivykis.a
-%{_libdir}/libivykis-modules.a
