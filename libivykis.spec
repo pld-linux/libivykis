@@ -1,12 +1,12 @@
 Summary:	Wrapper over various OS'es implementation of I/O readiness notification facilities
 Summary(pl.UTF-8):	Obudowanie implementacji różnych OS-ów powiadamiania o dostępności we/wy
 Name:		libivykis
-Version:	0.39
-Release:	2
+Version:	0.40
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libivykis/ivykis-%{version}.tar.gz
-# Source0-md5:	ee27ffddcec307747b4cd16498b9a67a
+# Source0-md5:	c03756defff1d613931d33bb3ce424ed
 URL:		http://libivykis.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
