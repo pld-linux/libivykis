@@ -1,11 +1,11 @@
---- ivykis-0.42.3/src/pthr.h~	2018-05-04 08:05:07.000000000 +0200
-+++ ivykis-0.42.3/src/pthr.h	2019-02-09 20:05:14.835849535 +0100
+--- ivykis-0.42.4/src/pthr.h.orig	2019-07-26 00:32:52.426000000 +0200
++++ ivykis-0.42.4/src/pthr.h	2019-07-26 00:34:24.480000000 +0200
 @@ -42,7 +42,7 @@
-  * symbol because that causes it to be undefined even if you link
-  * libpthread_nonshared.a in explicitly.
+  * we want to avoid "#pragma weak" for that symbol because that causes
+  * it to be undefined even if you link lib*_nonshared.a in explicitly.
   */
--#ifndef HAVE_LIBPTHREAD_NONSHARED
-+#if !defined(HAVE_LIBPTHREAD_NONSHARED) && !defined(__ILP32__)
+-#if !defined(HAVE_LIBC_NONSHARED) && !defined(HAVE_LIBPTHREAD_NONSHARED)
++#if !defined(HAVE_LIBC_NONSHARED) && !defined(HAVE_LIBPTHREAD_NONSHARED) && !defined(__ILP32__)
  #pragma weak pthread_atfork
  #endif
  
