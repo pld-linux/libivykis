@@ -51,7 +51,7 @@ Biblioteki statyczne libivykis.
 
 %prep
 %setup -q -n ivykis-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 cd test.mt
